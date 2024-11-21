@@ -24,35 +24,28 @@ async function getAccessToken() {
 
 
 //This is another POST to the igdb server to retrieve the specific query from the games section only
-async function getGame() {
-    if (!ACCESS_TOKEN) {
-        console.error("The access token has not been created");
-        return "TOKEN ERROR";
-    }
+app.get('/games', async (req, res) => {
+    const searchQuery = req.query.search || '';
+    const url = `https://api.igdb.com/v4/games`;
+    const body = `
+        fields name, cover.url, genres.name, summary, platforms.abbreviation;
+        search "${searchQuery}";
+        limit 10;
+    `;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Client-ID': CLIENT_ID,
+            'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        },
+        body,
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    res.json(data);
+});
 
-    try {
-        const response = await fetch(
-            "https://api.igdb.com/v4/games",
-            {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Client-ID': CLIENT_ID,
-                    'Authorization': `Bearer ${ACCESS_TOKEN}`, 
-                },
-                body: 'fields name, involved_companies; search "Halo";',
-            }
-        );
-
-        const games = await response.json(); // Await the JSON response
-        console.log(games); // Log the JSON object
-    } catch (err) {
-        console.error("Error fetching games:", err);
-    }
-}
-
-// Execute the functions in the correct order
-(async () => {
-    await getAccessToken(); // Ensure the access token is retrieved first
-    await getGame();        // Then fetch the games
-})();
+app.listen(3000, async () => {
+    await getAccessToken();
+    console.log('Server running on http://localhost:3000');
+});
