@@ -29,18 +29,22 @@ async function searchGame(gameName) {
                     'Client-ID': CLIENT_ID,
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
-                body: "fields name, rating, first_release_date, genres, platforms[0].name, summary, cover.url; limit 2;",
+                body: `fields name, rating, first_release_date, genres, summary, cover.url; limit 5; search "${gameName}";`
             }
         );
 
         const games = await response.json();
-        console.log(games); 
+        return games; 
     } catch (err) {
         console.error("Error fetching games:", err);
     }
 }
 
-async function gameByPlatform() {//Tomar todos numeros de plataforma para poder poner una funcion que regrese cada una de ellas
+
+//_______________________________________________________________________________________________________________________________
+
+
+async function gameByPlatform(platformID) {
     
     try {
         const response = await fetch(
@@ -52,26 +56,29 @@ async function gameByPlatform() {//Tomar todos numeros de plataforma para poder 
                     'Client-ID': CLIENT_ID,
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
-                body: "fields name; where platforms = 157; limit 2;"
+                body: `fields name, rating, first_release_date, genres, summary, cover.url; 
+                        limit 5; 
+                        where platforms = ${platformID} & rating > 80 & version_parent = null;
+                        sort rating desc;`
             
             }
         );
-
+        
         const games = await response.json();
-        console.log(games); 
+        console.log(games)
+        return games;
+ 
     } catch (err) {
         console.error("Error fetching games:", err);
     }
 }
 
 
-// Execute the functions in the correct order
-async function runIgdb()  {
-    await getAccessToken(); // Ensure the access token is retrieved first
-    await searchGame("halo");        // Then fetch the games
-};
-
-runIgdb();
+module.exports = {
+    getAccessToken,
+    searchGame,
+    gameByPlatform   
+}
 
 //PC -6
 //ps5 - 157

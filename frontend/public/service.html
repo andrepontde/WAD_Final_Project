@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <title>VaporPowered - Finder</title>
 </head>
-<body>
+<body onload="servicePopulation()">
     <header>
         <a href="index.html">DopFin</a>
         <a href="service.html">Find Games</a>
@@ -21,73 +21,34 @@
 
         <div id="gameFinder">
             <input type="text" id="findText">
-            <input type="button" value="Search Game">
+            <input type="button" value="Search Game" onclick="searchBar()">
         </div>
 
-        <div class="gamesDiv">
-            <h3>Best PC Games</h3>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        <div class="gamesDiv" id="searchedGames">
+
         </div>
-        <div class="gamesDiv">
-            <h3>Best PS5 Games</h3>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        
+        <h3>Best PC Games</h3>
+        <div class="gamesDiv" id="PCGamesDiv">
+
         </div>
-        <div class="gamesDiv">
-            <h3>Best XBOX Series S/X Games</h3>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        <h3>Best PS5 Games</h3>
+        <div class="gamesDiv" id="PS5GamesDiv">
+  
         </div>
-        <div class="gamesDiv">
-            <h3>Best Switch Games</h3>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        <h3>Best XBOX Series S/X Games</h3>
+        <div class="gamesDiv" id="xboxGamesDiv">
+
+        </div>
+        <h3>Best Switch Games</h3>
+        <div class="gamesDiv" id="SwitchGamesDiv">
+
         </div>
         <footer>
             <p>Contact information here</p>
             <a href="contact.html">Get in touch</a>
         </footer>
+        <script async type="text/javascript" src="script.js"></script>
     </div>
 </body>
 </html>

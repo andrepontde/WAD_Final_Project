@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <title>VaporPowered</title>
 </head>
-<body>
+<body onload="indexPopulation()">
     <header>
         <a href="index.html">DopFin</a>
         <a href="service.html">Find Games</a>
@@ -31,30 +31,13 @@
             </div>
         </div>
         <h3 class="gamesDivTitle">Best PC Games</h3>
-        <div class="gamesDiv">
-            
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        <div class="gamesDiv" id="PCGamesDiv">
+          
         </div>
         <h3 class="gamesDivTitle">Best PS5 Games</h3>
 
-        <div class="gamesDiv">
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
-            <div class="miniGame">
-                <p>Game info here</p>
-            </div>
+        <div class="gamesDiv" id="PS5GamesDiv">
+
         </div>
         <a href="service.html">
             <input type="button" value="Find Games!" >
@@ -63,5 +46,18 @@
             <a href="contact.html">Get in touch</a>
         </footer>
     </div>
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2 id="modalGameTitle"></h2>
+            <img id="modalGameImage" src="" alt="">
+            <p id="modalGameSummary"></p>
+            <p id="modalGameReleaseDate"></p>
+            <p id="modalGameRating"></p>
+            <p id="modalGameGenres"></p>
+            <button id="addToWishlistButton">Add to Wishlist</button>
+        </div>
+    </div>
+    <script async type="text/javascript" src="script.js"></script>
 </body>
 </html>
