@@ -56,7 +56,7 @@ async function gameByPlatform(platformID) {
                     'Client-ID': CLIENT_ID,
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
-                body: `fields name, rating, first_release_date, genres, summary, cover.url; 
+                body: `fields name, rating, first_release_date, genres.name, summary, cover.url; 
                         limit 5; 
                         where platforms = ${platformID} & rating > 80 & version_parent = null;
                         sort rating desc;`

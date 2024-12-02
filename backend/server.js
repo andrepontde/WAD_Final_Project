@@ -32,9 +32,10 @@ app.get('/searchGame', async (req, res) => {
 
 
 
+
 // Start the server and fetch data
 const port = 3000;
 app.listen(port, async () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`http://localhost:${port}/`);
     await igdbapi.getAccessToken();
 });
