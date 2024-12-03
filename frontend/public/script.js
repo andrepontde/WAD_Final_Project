@@ -41,7 +41,6 @@ async function indexPopulation(){
   const ps5Games = await fetchPlatform(167);
   populateDiv(ps5Games, "PS5GamesDiv")
 }
-
 async function servicePopulation(){
   const pcGames = await fetchPlatform(6);
   populateDiv(pcGames, "PCGamesDiv")
@@ -56,13 +55,19 @@ async function servicePopulation(){
   populateDiv(SwitchGames, "SwitchGamesDiv")
 }
 
+async function wishListPopulation() {
+  const wishedGames = await fetchWishlist();
+  populateDiv(wishedGames,"WishlistGames")
+}
+
 function populateDiv(receivedGames, divToPopulate) {
   let isPopUp = false;
-
-  
+  let isWishList = false;
   //If a game is clicked, the PopUpGamesDiv will always be the Div
   if (divToPopulate === "PopUpGamesDiv") {
     isPopUp = true;
+  }else if(divToPopulate === "WishlistGames"){
+    isWishList = true;
   }
 
   const gameContainer = document.getElementById(divToPopulate);
@@ -162,8 +167,23 @@ function populateDiv(receivedGames, divToPopulate) {
       wishlistButton.textContent = "Add to wish list";
       wishlistButton.classList.add('closeButton');
       //FIX WISHLIST BUTTON
-      wishlistButton.addEventListener('click', addToWishlist(game));
+      wishlistButton.addEventListener('click', () => {
+        addToWishlist(game);
+      });      
       gameCard.appendChild(wishlistButton);
+
+    } else if (isWishList){
+      gameCard.classList.add('wishGames');
+      //Add the popUp Function and add miniGame class if not a popUp item
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Remove from wishlist";
+      deleteButton.classList.add('closeButton');
+      //FIX WISHLIST BUTTON
+      deleteButton.addEventListener('click', () => {
+        removeFromWishlist(game);
+      });      
+      gameCard.appendChild(deleteButton);
 
     } else {
       gameCard.classList.add('miniGame');
@@ -176,20 +196,87 @@ function populateDiv(receivedGames, divToPopulate) {
 }
 
 function popUpGame(event) {
-
-
-  //Check this code better, retrieved from - https://www.w3schools.com/js/js_events.asp
+  //retrieved from - https://www.w3schools.com/js/js_events.asp
   if (!event || !event.currentTarget) {
     console.error("Event or currentTarget is undefined.");
     return;
   }
-
-
   const game = JSON.parse(event.currentTarget.dataset.game);
-  //This adds the game Info to the populateDiv funciton for it to fill a div that appears on demand
+  //This adds the game Info to the populateDiv funciton for it to fill a div that appears on demand as a pop up.
   populateDiv([game], "PopUpGamesDiv"); 
 }
 
-function addToWishlist(game) {
-  
+async function addToWishlist(game) {
+
+  const currentGames = await fetchWishlist();
+  const gameID = game.id;
+
+  //Checking if a game is already on the wishlist.
+  for (let i = 0; i < currentGames.length; i++){
+    currentGame = currentGames[i];
+    if (currentGame.id == gameID){
+      alert(`${game.name} is already on your wishlist!`)
+      return;
+    }
+  }
+
+  const gameWithExtras = {
+    
+      id: game.id,
+      cover: game.cover,
+      first_release_date: game.first_release_date,
+      genres: game.genres,
+      name: game.name,
+      rating: game.rating,
+      summary: game.summary,
+      rank: 1,
+      playState: "Not Played"
+  };
+
+
+  try {
+    const response = await fetch(
+        "http://localhost:3000/wishlist",
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(gameWithExtras)
+        }
+    );
+    const data = await response.json();
+    console.log('Game added to wishlist:', data);
+    alert(`${game.name} has been added to your wishlist!`);
+  } catch (err) {
+      console.error("Error fetching games:", err);
+  }
+}
+
+async function removeFromWishlist(game) {
+  const gameId = game.id;
+  try {
+    
+    const response = await fetch(
+        `http://localhost:3000/wishlist/${gameId}`,
+        {
+            method: 'DELETE',
+        }
+    );
+    console.log('Game deleted from wishlist:', game.name);
+    alert(`${game.name} has been deleted from your wishlist!`);
+    
+    wishListPopulation();
+  } catch (err) {
+      console.error("Error fetching games:", err);
+  }
+}
+
+
+async function fetchWishlist() {
+  try {
+      const response = await fetch('http://localhost:3000/wishlist'); // Make GET request
+      const wishlist = await response.json(); // Parse the response as JSON
+      return wishlist; 
+  } catch (error) {
+      console.error('Error fetching wishlist:', error);
+  }
 }

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <title>VaporPowered - Finder</title>
 </head>
-<body>
+<body onload="wishListPopulation()">
     <header>
         <a href="index.html">DopFin</a>
         <a href="service.html">Find Games</a>
@@ -21,31 +21,11 @@
 
 
         <div id="wishlist">
-            <div class="gamesDiv">
+            <div class="gamesDiv" id="WishlistGames">
             
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
+                
             </div>
             <!--Lo que puedo hacer aqui es que se pongan maximo 3 juegos en una fila y a la siguente se tenga que concatenar en la siguiente file-->
-            <div class="gamesDiv">
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
-                <div class="miniGame">
-                    <p>Game info here</p>
-                </div>
-            </div>
-        </div>
 
 
 
@@ -53,6 +33,12 @@
             <p>Contact information here</p>
             <a href="contact.html">Get in touch</a>
         </footer>
+    </div>
+    <script async type="text/javascript" src="script.js"></script>
+    <!-- Game Details pop up -->
+
+    <div class="gamesDiv" id="PopUpGamesDiv">
+          
     </div>
 </body>
 </html>

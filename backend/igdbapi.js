@@ -29,7 +29,9 @@ async function searchGame(gameName) {
                     'Client-ID': CLIENT_ID,
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
-                body: `fields name, rating, first_release_date, genres, summary, cover.url; limit 5; search "${gameName}";`
+                body: `fields name, rating, first_release_date, genres.name, summary, cover.url; 
+                        limit 5; 
+                        search "${gameName}";`
             }
         );
 
@@ -39,10 +41,6 @@ async function searchGame(gameName) {
         console.error("Error fetching games:", err);
     }
 }
-
-
-//_______________________________________________________________________________________________________________________________
-
 
 async function gameByPlatform(platformID) {
     
@@ -65,14 +63,13 @@ async function gameByPlatform(platformID) {
         );
         
         const games = await response.json();
-        console.log(games)
+        // console.log(games)
         return games;
  
     } catch (err) {
         console.error("Error fetching games:", err);
     }
 }
-
 
 module.exports = {
     getAccessToken,
@@ -81,7 +78,7 @@ module.exports = {
 }
 
 //PC -6
-//ps5 - 157
+//ps5 - 167
 //Series S/X - 169
 //Switch 130
 
