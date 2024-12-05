@@ -60,7 +60,7 @@ async function wishListPopulation() {
   populateDiv(wishedGames,"WishlistGames")
 }
 
-function populateDiv(receivedGames, divToPopulate) {
+async function populateDiv(receivedGames, divToPopulate) {
   let isPopUp = false;
   let isWishList = false;
   //If a game is clicked, the PopUpGamesDiv will always be the Div
@@ -79,7 +79,10 @@ function populateDiv(receivedGames, divToPopulate) {
 
     const gameCard = document.createElement('div');
 
-    gameCard.dataset.game = JSON.stringify(game);
+
+    const gameJson = document.createElement('p');
+    gameJson.textContent = JSON.stringify(game);
+
     //Add the entire game data to the DIV itself so it can be called later and added to the wishlist JSON file. 
 
     //--------- Game card population area -------- 
@@ -131,6 +134,11 @@ function populateDiv(receivedGames, divToPopulate) {
     gameCard.appendChild(genresElement);
 
     if (isPopUp) {
+
+      if (document.getElementById("WishlistGames")) {
+        isWishList = true;
+    }
+
       //If it is a PopUp (When a game is clicked to te able to see the full game details)
       gameCard.classList.add('miniPopUpGame');
       //Add a different class so it doesnt collide with the miniGame class
@@ -150,59 +158,138 @@ function populateDiv(receivedGames, divToPopulate) {
       }
       gameCard.appendChild(gameSummary);
       
-      //Exclusive button to close the div when clicked
-      const closeButton = document.createElement("button");
-      closeButton.textContent = 'Close';
-      closeButton.classList.add('closeButton');
-      closeButton.onclick = () => {
-        gameContainer.style.display = 'none'; // Hide the pop-up
-        gameContainer.innerHTML = ''; // Clear the content
-      };
+      //Button to close the div when clicked
 
-      gameCard.appendChild(closeButton);
       gameContainer.style.display = 'block';
 
+      if (isWishList){
+        //-----------------------------------------------------------------
+        const rankLabel = document.createElement('label');
+        rankLabel.textContent = ' Rank: ';
+        
+        const rankSelect = document.createElement('select');
+        rankSelect.classList.add('rankSelector');
+        
+        // Dynamically create rank options based on the number of games
+        const wishlist = await fetchWishlist(); // Get the current wishlist
+        const maxRank = wishlist.length;
+        
+        for (let j = 1; j <= maxRank; j++) {
+          const option = document.createElement('option');
+          option.value = j;
+          option.textContent = `Rank ${j}`;
+          if (game.rank === j) option.selected = true; // Select current rank
+          rankSelect.appendChild(option);
+        }
+        
+        rankLabel.appendChild(rankSelect);
+        gameCard.appendChild(rankLabel);
 
-      const wishlistButton = document.createElement("button");
-      wishlistButton.textContent = "Add to wish list";
-      wishlistButton.classList.add('closeButton');
-      //FIX WISHLIST BUTTON
-      wishlistButton.addEventListener('click', () => {
-        addToWishlist(game);
-      });      
-      gameCard.appendChild(wishlistButton);
+        //-----------------------------------------------------------------
+        //FIX RANK SYSTEM.
+
+        const playedLabel = document.createElement('label');
+        playedLabel.textContent = ' Played: ';
+        const playedCheckbox = document.createElement('input');
+        playedCheckbox.type = 'checkbox';
+        playedCheckbox.checked = game.playState === "Played"; 
+        playedLabel.appendChild(playedCheckbox);
+        gameCard.appendChild(playedLabel);
+
+        const closeButton = document.createElement("button");
+        closeButton.textContent = 'Close';
+        closeButton.classList.add('closeButton');
+        closeButton.onclick = async () => {
+          //Understand this code.
+        const newPlayState = playedCheckbox.checked ? "Played" : "Not Played";
+        const newRank = parseInt(rankSelect.value, 10);
+
+          const gameWithExtras = {
+              id: game.id,
+              cover: game.cover,
+              first_release_date: game.first_release_date,
+              genres: game.genres,
+              name: game.name,
+              rating: game.rating,
+              summary: game.summary,
+              rank: newRank,
+              playState: newPlayState,
+          };
+      
+          await updateWishlist(gameWithExtras); // Ensure update is completed
+          await wishListPopulation(); // Re-populate the wishlist
+      
+          gameContainer.style.display = 'none'; // Hide the pop-up
+          gameContainer.innerHTML = ''; // Clear the content
+      };
+      
+        gameCard.appendChild(closeButton);
+        //----------------------------------------------------------------------------------------------
+      }else{
+
+        const closeButton = document.createElement("button");
+        closeButton.textContent = 'Close';
+        closeButton.classList.add('closeButton');
+        closeButton.onclick = () => {
+          gameContainer.style.display = 'none'; // Hide the pop-up
+          gameContainer.innerHTML = ''; // Clear the content
+        };
+  
+        gameCard.appendChild(closeButton);
+
+        const wishlistButton = document.createElement("button");
+        wishlistButton.textContent = "Add to wish list";
+        wishlistButton.classList.add('closeButton');
+        //FIX WISHLIST BUTTON
+        wishlistButton.addEventListener('click', () => {
+          addToWishlist(game);
+        });      
+        gameCard.appendChild(wishlistButton);
+        
+      }
 
     } else if (isWishList){
-      gameCard.classList.add('wishGames');
+      
+      //CHANGE CLASS TO BE OWN WISHLIST GAME TO BE ABLE TO RANK THEM PROPERLY!!!!
+      gameCard.classList.add('miniGame');
+      
       //Add the popUp Function and add miniGame class if not a popUp item
 
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Remove from wishlist";
-      deleteButton.classList.add('closeButton');
+      //ADD own class here
+      //deleteButton.classList.add('closeButton');
       //FIX WISHLIST BUTTON
       deleteButton.addEventListener('click', () => {
         removeFromWishlist(game);
-      });      
+      });
+
+      const editButton = document.createElement("button");
+      editButton.textContent = "Edit";
+      //Add own class here !!!
+      //editButton.classList.add('');
+      //FIX WISHLIST BUTTON
+      editButton.addEventListener('click', () => {
+        popUpGame(gameJson.textContent);
+      });
+      //<input type="number" id="value" name="value" required="">
       gameCard.appendChild(deleteButton);
+      gameCard.appendChild(editButton);
 
     } else {
       gameCard.classList.add('miniGame');
       //Add the popUp Function and add miniGame class if not a popUp item
-      gameCard.addEventListener('click', (event) => popUpGame(event));
+      gameCard.addEventListener('click', () => popUpGame(gameJson.textContent));
     }
 
     gameContainer.appendChild(gameCard);
   }
 }
 
-function popUpGame(event) {
-  //retrieved from - https://www.w3schools.com/js/js_events.asp
-  if (!event || !event.currentTarget) {
-    console.error("Event or currentTarget is undefined.");
-    return;
-  }
-  const game = JSON.parse(event.currentTarget.dataset.game);
-  //This adds the game Info to the populateDiv funciton for it to fill a div that appears on demand as a pop up.
+function popUpGame(gameString) {
+  
+  const game = JSON.parse(gameString)
+
   populateDiv([game], "PopUpGamesDiv"); 
 }
 
@@ -229,7 +316,6 @@ async function addToWishlist(game) {
       name: game.name,
       rating: game.rating,
       summary: game.summary,
-      rank: 1,
       playState: "Not Played"
   };
 
@@ -251,6 +337,25 @@ async function addToWishlist(game) {
   }
 }
 
+async function updateWishlist(updatedGame) {
+  try {
+      const response = await fetch(`http://localhost:3000/wishlist/${updatedGame.id}`, {
+          method: 'PUT', 
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedGame)
+      });
+
+      const data = await response.json();
+      //alert('Game updated successfully!');
+      console.log('Updated game:', data);
+      
+  } catch (error) {
+      console.error('Error updating game:', error);
+  }
+}
+
 async function removeFromWishlist(game) {
   const gameId = game.id;
   try {
@@ -269,7 +374,6 @@ async function removeFromWishlist(game) {
       console.error("Error fetching games:", err);
   }
 }
-
 
 async function fetchWishlist() {
   try {

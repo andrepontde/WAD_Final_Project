@@ -45,6 +45,10 @@ app.post('/wishlist', (req, res) => {
         if (data) {
             wishlist = JSON.parse(data);
         }
+
+        const maxRank = wishlist.length + 1;
+        newGame.rank = maxRank;
+
         //Add the new game to the wishlist array
         wishlist.push(newGame);
         //Write the updated wishlist back to the file
@@ -72,7 +76,7 @@ app.get('/wishlist', (req, res) => {
     });
 });
 
-//Class code - Delete game ID from file.
+//Class code - Delete game from file.
 app.delete('/wishlist/:id', (req, res) => {
     const gameId = parseInt(req.params.id, 10); // Convert the ID to a number
     const wishlistPath = path.join(__dirname, 'wishlist.json');
@@ -94,6 +98,56 @@ app.delete('/wishlist/:id', (req, res) => {
     });
 });
 
+//Class code - Update an Item
+app.put('/wishlist/:id', (req, res) => {
+    const gameId = parseInt(req.params.id, 10);
+    const updatedGame = req.body;
+    const wishlistPath = path.join(__dirname, 'wishlist.json');
+  
+    fs.readFile(wishlistPath, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error reading wishlist:', err);
+        return res.status(500).json({ error: 'Failed to read wishlist' });
+      }
+  
+      let wishlist = JSON.parse(data);
+  
+      // Find the original game in the wishlist
+      const originalGameIndex = wishlist.findIndex(game => game.id === gameId);
+      const originalRank = wishlist[originalGameIndex].rank;
+  
+      // Update the game
+      wishlist[originalGameIndex] = updatedGame;
+  
+      // Handle rank shifting
+      if (originalRank !== updatedGame.rank) {
+        wishlist = wishlist.map(game => {
+          if (game.id !== updatedGame.id) {
+            // Shift ranks accordingly
+            if (game.rank >= updatedGame.rank && game.rank < originalRank) {
+              game.rank += 1; // Push down if within new rank range
+            } else if (game.rank <= updatedGame.rank && game.rank > originalRank) {
+              game.rank -= 1; // Pull up if in previous rank range
+            }
+          }
+          return game;
+        });
+      }
+  
+      // Sort by rank before saving
+      wishlist.sort((a, b) => a.rank - b.rank);
+  
+      fs.writeFile(wishlistPath, JSON.stringify(wishlist, null, 2), err => {
+        if (err) {
+          console.error('Error saving updated wishlist:', err);
+          return res.status(500).json({ error: 'Failed to save updated wishlist' });
+        }
+        res.status(200).json({ message: 'Game updated and ranks adjusted' });
+      });
+    });
+  });
+  
+  
 
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
