@@ -55,7 +55,7 @@ async function gameByPlatform(platformID) {
                     'Authorization': `Bearer ${ACCESS_TOKEN}`,
                 },
                 body: `fields name, rating, first_release_date, genres.name, summary, cover.url; 
-                        limit 5; 
+                        limit 20; 
                         where platforms = ${platformID} & rating > 80 & version_parent = null;
                         sort rating desc;`
             
@@ -64,11 +64,15 @@ async function gameByPlatform(platformID) {
         
         const games = await response.json();
         // console.log(games)
-        return games;
- 
+        return selectRandomGames(games, 5); 
     } catch (err) {
         console.error("Error fetching games:", err);
     }
+}
+
+function selectRandomGames(games, count) {
+    const shuffled = games.sort(() => 0.5 - Math.random()); // Shuffle the array
+    return shuffled.slice(0, count); // Take the first `count` items
 }
 
 module.exports = {

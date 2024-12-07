@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://db.onlinewebfonts.com/c/3284c3a32cf946466fb963369b3c5b2d?family=Disket+Mono" rel="stylesheet">
     <title>VaporPowered</title>
 </head>
 <body onload="indexPopulation()">
-    <header>
-        <a href="index.html">DopFin</a>
-        <a href="service.html">Find Games</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Get in touch</a>
-        <a href="wishlist.html">Wishlist</a>
+    <header class="navigation-bar">
+        <div class="logo">
+            <a href="index.html">DopFin</a>
+        </div>
+
+        <nav>
+            <a href="service.html">Find Games</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="wishlist.html">Wishlist</a>
+        </nav>
     </header>
     <div class="mainDiv">
         <div class="introDiv">
-            <h1>DopFin</h1>
-            <h3>Your Gaming Dopamine Finder!</h3>
+            <div class="textSection">
+                <h1>DopFin</h1>
+                <h3>Your Gaming Dopamine Finder!</h3>
+            </div>
+            <img src="images/dopfin_Symbol.jpg" alt="DopFin Symbol" class="introImage">
         </div>
         <div class="dividedDiv">
             <div>
@@ -28,30 +37,46 @@
             </div>
             <div>
                 <!--Empty Div-->
+                <img src="images/Screenshot.png" alt="screenshot from my game library!">
             </div>
         </div>
-        <h3 class="gamesDivTitle">Best PC Games</h3>
+        <div class="sectionTitle">
+            <h3 class="gamesDivTitle">Best PC Games</h3>
+        </div>
         <div class="gamesDiv" id="PCGamesDiv">
           
         </div>
-        <h3 class="gamesDivTitle">Best PS5 Games</h3>
-
+        <div class="sectionTitle">
+            <h3 class="gamesDivTitle">Best PS5 Games</h3>
+        </div>
         <div class="gamesDiv" id="PS5GamesDiv">
 
         </div>
-        <a href="service.html">
-            <input type="button" value="Find Games!" >
-        </a>        <footer>
-            <p>Contact information here</p>
-            <a href="contact.html">Get in touch</a>
-        </footer>
+
+        <div class="dividedDiv">
+            <div>
+                <h2>Generic message!</h2>
+
+            </div>
+            <div>
+                <a href="service.html">
+                    <input type="button" value="Find Games!" >
+                </a>            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>André Pont De Anda - x23164034@student.ncirl.ie</p>
+        <p>Games fetched from the IGDB API!</p>
+        <a href="contact.html">Get in touch</a>
+    </footer>
     
     <script async type="text/javascript" src="script.js"></script>
 
     <!-- Game Details pop up -->
 
-    <div class="gamesDiv" id="PopUpGamesDiv">
+    <!--ADD DIVIDED DIV FUNCTIONALITY TO POPUP-->
+    <div class="gamesDiv" class="dividedDiv" id="PopUpGamesDiv">
           
     </div>
 

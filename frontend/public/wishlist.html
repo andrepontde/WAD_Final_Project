@@ -7,35 +7,47 @@
     <title>VaporPowered - Finder</title>
 </head>
 <body onload="wishListPopulation()">
-    <header>
-        <a href="index.html">DopFin</a>
-        <a href="service.html">Find Games</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Get in touch</a>
-        <a href="wishlist.html">Wishlist</a>
-    </header>
-    <div class="mainDiv">
-        <div class="introDiv">
-            <h2>Manage your next games to play here!</h2>
+    <header class="navigation-bar">
+        <div class="logo">
+            <a href="index.html">DopFin</a>
         </div>
 
-
-        <div id="wishlist">
-            <div class="gamesDiv" id="WishlistGames">
-            
-                
+        <nav>
+            <a href="service.html">Find Games</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="wishlist.html">Wishlist</a>
+        </nav>
+    </header>
+    <div class="mainDiv">
+        <div class="sectionTitle">
+            <h3 class="gamesDivTitle">Manage your next games to play here!</h3>
+        </div>
+        <div class="wishlist-container">
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <canvas id="wishlistChart" width="400" height="200"></canvas>
+                <canvas id="ratingDistributionChart" width="400" height="200"></canvas>
             </div>
-            <!--Lo que puedo hacer aqui es que se pongan maximo 3 juegos en una fila y a la siguente se tenga que concatenar en la siguiente file-->
-
-
-
-        <footer>
-            <p>Contact information here</p>
-            <a href="contact.html">Get in touch</a>
-        </footer>
+    
+            <!-- Games Section -->
+            <div class="gamesDiv" id="WishlistGames">
+                <!-- Games will populate here -->
+            </div>
+        </div>
     </div>
+
+    
+
     <script async type="text/javascript" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Game Details pop up -->
+    <footer>
+        <p>André Pont De Anda - x23164034@student.ncirl.ie</p>
+        <p>Games fetched from the IGDB API!</p>
+                <a href="contact.html">Get in touch</a>
+    </footer>
 
     <div class="gamesDiv" id="PopUpGamesDiv">
           
