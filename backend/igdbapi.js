@@ -72,7 +72,7 @@ async function gameByPlatform(platformID) {
 
 function selectRandomGames(games, count) {
     const shuffled = games.sort(() => 0.5 - Math.random()); // Shuffle the array
-    return shuffled.slice(0, count); // Take the first `count` items
+    return shuffled.slice(0, count);
 }
 
 module.exports = {
