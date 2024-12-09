@@ -1,3 +1,4 @@
+//When a platform ID is inserted in the population methods, it fetches games from IGDB only for that platform
 async function fetchPlatform(platformID) {
   try {
       const response = await fetch(`http://localhost:3000/gamesByPlatform?search=${platformID}`);
@@ -13,6 +14,7 @@ async function fetchPlatform(platformID) {
   }
 }
 
+//Function to search for a game comunicating with the server and IGDB page
 async function searchGame(gameName) {
   try {
       const response = await fetch(`http://localhost:3000/searchGame?search=${gameName}`);
@@ -28,12 +30,18 @@ async function searchGame(gameName) {
   }
 }
 
+//This function calls the searchGame function and populates the respective div.
 async function searchBar() {
   var theGame = document.getElementById("findText").value;
   searchedGame =  await searchGame(theGame);
-  populateDiv(searchedGame, "searchedGames");
+  if (searchedGame && searchedGame.length > 0) {
+    populateDiv(searchedGame, "searchedGames");
+  } else {
+    document.getElementById("searchedGames").innerHTML = "No game was found";
+  }
 }
 
+//This function populates the main page by filling each div individually with the populate div function
 async function indexPopulation(){
   const pcGames = await fetchPlatform(6);
   populateDiv(pcGames, "PCGamesDiv")
@@ -41,6 +49,8 @@ async function indexPopulation(){
   const ps5Games = await fetchPlatform(167);
   populateDiv(ps5Games, "PS5GamesDiv")
 }
+
+//This function populates the service page by filling each div individually with the populate div function
 async function servicePopulation(){
   const pcGames = await fetchPlatform(6);
   populateDiv(pcGames, "PCGamesDiv")
@@ -55,6 +65,7 @@ async function servicePopulation(){
   populateDiv(SwitchGames, "SwitchGamesDiv")
 }
 
+//This function call other functions to populate or update the wishlist page
 async function wishListPopulation() {
   const wishedGames = await fetchWishlist();
   populateDiv(wishedGames,"WishlistGames")
@@ -62,6 +73,7 @@ async function wishListPopulation() {
   renderRatingDistributionChart();
 }
 
+//This is the main function to write all of the info on the page, it takes a div and games and populates each part
 async function populateDiv(receivedGames, divToPopulate) {
   let isPopUp = false;
   let isWishList = false;
@@ -144,12 +156,10 @@ async function populateDiv(receivedGames, divToPopulate) {
       //If it is a PopUp (When a game is clicked to te able to see the full game details)
       gameCard.classList.add('miniPopUpGame');
       //Add a different class so it doesnt collide with the miniGame class
+
+      //Code retrieved from https://www.w3schools.com/jsref/jsref_split.asp - used to have a limited amount of words on the summary section in case it was too big
       const gameSummary = document.createElement('p');
-
-
-      //CHECK THIS CODE BETTER IT LOOKS PRETTY DAMN UGLY!!!!!!!!!!!!!!!!!!!!!!!!!
       let truncatedSummary = game.summary.split(' ').slice(0, 60).join(' ');
-
       if (game.summary){
         if (game.summary.split(' ').length > 60) {
           truncatedSummary += '...';
@@ -186,6 +196,7 @@ async function populateDiv(receivedGames, divToPopulate) {
         rankLabel.appendChild(rankSelect);
         gameCard.appendChild(rankLabel);
 
+        //Add a check box to know if the game has been played
         const playedLabel = document.createElement('label');
         playedLabel.textContent = ' Played: ';
         const playedCheckbox = document.createElement('input');
@@ -196,7 +207,7 @@ async function populateDiv(receivedGames, divToPopulate) {
 
         const closeButton = document.createElement("button");
         closeButton.textContent = 'Close';
-        closeButton.classList.add('closeButton');
+        closeButton.classList.add('popButton');
         closeButton.onclick = async () => {
         
           if(playedCheckbox.checked){
@@ -207,6 +218,7 @@ async function populateDiv(receivedGames, divToPopulate) {
 
           const newRank = parseInt(rankSelect.value, 10);
 
+          //Update the new info if the game was edited upon closing the pop up
           const gameWithExtras = {
               id: game.id,
               cover: game.cover,
@@ -219,8 +231,8 @@ async function populateDiv(receivedGames, divToPopulate) {
               playState: newPlayState,
           };
       
-          await updateWishlist(gameWithExtras); // Ensure update is completed
-          await wishListPopulation(); // Re-populate the wishlist
+          await updateWishlist(gameWithExtras); //Ensure update is completed
+          await wishListPopulation(); //Re-populate the wishlist
       
           gameContainer.style.display = 'none'; // Hide the pop-up
           gameContainer.innerHTML = ''; // Clear the content
@@ -232,17 +244,17 @@ async function populateDiv(receivedGames, divToPopulate) {
 
         const closeButton = document.createElement("button");
         closeButton.textContent = 'Close';
-        closeButton.classList.add('closeButton');
+        closeButton.classList.add('popButton');
         closeButton.onclick = () => {
-          gameContainer.style.display = 'none'; // Hide the pop-up
-          gameContainer.innerHTML = ''; // Clear the content
+          gameContainer.style.display = 'none'; //Hide the pop-up
+          gameContainer.innerHTML = ''; //Clear the content
         };
   
         gameCard.appendChild(closeButton);
 
         const wishlistButton = document.createElement("button");
         wishlistButton.textContent = "Add to wish list";
-        wishlistButton.classList.add('closeButton');
+        wishlistButton.classList.add('popButton');
         //FIX WISHLIST BUTTON
         wishlistButton.addEventListener('click', () => {
           addToWishlist(game);
@@ -260,18 +272,12 @@ async function populateDiv(receivedGames, divToPopulate) {
 
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Remove from wishlist";
-      //ADD own class here
-      //deleteButton.classList.add('closeButton');
-      //FIX WISHLIST BUTTON
       deleteButton.addEventListener('click', () => {
         removeFromWishlist(game);
       });
 
       const editButton = document.createElement("button");
       editButton.textContent = "Edit";
-      //Add own class here !!!
-      //editButton.classList.add('');
-      //FIX WISHLIST BUTTON
       editButton.addEventListener('click', () => {
         popUpGame(gameJson.textContent);
       });
@@ -289,13 +295,13 @@ async function populateDiv(receivedGames, divToPopulate) {
   }
 }
 
+//Function called when a game is clicked so it can appear as a pop up on the screen
 function popUpGame(gameString) {
-  
   const game = JSON.parse(gameString)
-
   populateDiv([game], "PopUpGamesDiv"); 
 }
 
+//Adds a new game to the wishlist JSON
 async function addToWishlist(game) {
 
   const currentGames = await fetchWishlist();
@@ -340,6 +346,7 @@ async function addToWishlist(game) {
   }
 }
 
+//Updates a game's properties
 async function updateWishlist(updatedGame) {
   try {
       const response = await fetch(`http://localhost:3000/wishlist/${updatedGame.id}`, {
@@ -359,10 +366,10 @@ async function updateWishlist(updatedGame) {
   }
 }
 
+//Sends the game to be removed from the wishlist
 async function removeFromWishlist(game) {
   const gameId = game.id;
   try {
-    
     const response = await fetch(
         `http://localhost:3000/wishlist/${gameId}`,
         {
@@ -378,112 +385,133 @@ async function removeFromWishlist(game) {
   }
 }
 
+//This function is used to get the JSON of wishlisted games to later populate the page with
 async function fetchWishlist() {
   try {
-      const response = await fetch('http://localhost:3000/wishlist'); // Make GET request
-      const wishlist = await response.json(); // Parse the response as JSON
+      const response = await fetch('http://localhost:3000/wishlist');
+      const wishlist = await response.json();
       return wishlist; 
   } catch (error) {
       console.error('Error fetching wishlist:', error);
   }
 }
 
-//FIX RENDER FUNC
+//Charts created with a mix of class knowledge and https://www.w3schools.com/js/js_graphics_chartjs.asp
+let wishlistChartInstance;//Variable to delete the chart when updating it
 async function renderWishlistChart() {
-  // Fetch the current wishlist
-  const wishlist = await fetchWishlist();
+try {
+    // Fetch the current wishlist
+    const wishlist = await fetchWishlist();
 
-  // Count played and not played games
-  const playedCount = wishlist.filter(game => game.playState === "Played").length;
-  const notPlayedCount = wishlist.length - playedCount;
+    // Count played and not played games
+    const playedCount = wishlist.filter(game => game.playState === "Played").length;
+    const notPlayedCount = wishlist.length - playedCount;
 
-  // Data for the chart
-  const chartData = {
-    labels: ["Played", "Not Played"],
-    datasets: [{
-      label: "Games Played Status",
-      data: [playedCount, notPlayedCount], // Values for played and not played
-      backgroundColor: ["#4caf50", "#f44336"], // Green for played, red for not played
-      borderColor: ["#388e3c", "#d32f2f"],
-      borderWidth: 1
-    }]
-  };
+    // Data for the chart
+    const chartData = {
+      labels: ["Played", "Not Played"],
+      datasets: [{
+        label: "Games Played Status",
+        data: [playedCount, notPlayedCount], // Values for played and not played
+        backgroundColor: ["#4caf50", "#f44336"], // Green for played, red for not played
+        borderColor: ["#388e3c", "#d32f2f"],
+        borderWidth: 1
+      }]
+    };
 
-  // Options for the chart
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
+    // Options for the chart
+    const chartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        },
       },
-    },
-  };
+    };
 
-  // Get the canvas element
-  const ctx = document.getElementById('wishlistChart').getContext('2d');
+    // Get the canvas element
+    const ctx = document.getElementById('wishlistChart').getContext('2d');
 
-  // Render the chart
-  new Chart(ctx, {
-    type: 'pie', // You can change this to 'bar', 'doughnut', etc.
-    data: chartData,
-    options: chartOptions
-  });
-}
-//FIX RENDER FUNC 2
-async function renderRatingDistributionChart() {
-  // Fetch the wishlist data
-  const wishlist = await fetchWishlist();
-
-  // Prepare rating ranges
-  const ratingRanges = {
-    "0-50": 0,
-    "51-70": 0,
-    "71-85": 0,
-    "86-100": 0,
-  };
-
-  // Categorize games into rating ranges
-  wishlist.forEach(game => {
-    if (game.rating) {
-      if (game.rating <= 50) ratingRanges["0-50"]++;
-      else if (game.rating <= 70) ratingRanges["51-70"]++;
-      else if (game.rating <= 85) ratingRanges["71-85"]++;
-      else if (game.rating <= 100) ratingRanges["86-100"]++;
+    // Destroy the existing chart instance if it exists
+    if (wishlistChartInstance) {
+      wishlistChartInstance.destroy();
     }
-  });
 
-  // Data for the chart
-  const chartData = {
-    labels: Object.keys(ratingRanges),
-    datasets: [{
-      label: "Games by Rating Range",
-      data: Object.values(ratingRanges),
-      backgroundColor: ["#f44336", "#ff9800", "#ffc107", "#4caf50"], // Red to green gradient
-      borderColor: ["#d32f2f", "#f57c00", "#ffa000", "#388e3c"],
-      borderWidth: 1,
-    }],
-  };
-
-  // Chart options
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-    },
-  };
-
-  // Get the canvas element
-  const ctx = document.getElementById('ratingDistributionChart').getContext('2d');
-
-  // Render the chart
-  new Chart(ctx, {
-    type: 'bar', // Use 'bar' chart to show the distribution
-    data: chartData,
-    options: chartOptions,
-  });
+    // Create a new chart instance
+    wishlistChartInstance = new Chart(ctx, {
+      type: 'pie', // You can change this to 'bar', 'doughnut', etc.
+      data: chartData,
+      options: chartOptions,
+    });
+  } catch (error) {
+    console.error("Error rendering wishlist chart:", error);
+  }
 }
+let ratingDistributionChartInstance; //Variable to delete the chart when updating it
+async function renderRatingDistributionChart() {
+  try {
+    // Fetch the wishlist data
+    const wishlist = await fetchWishlist();
+
+    // Prepare rating ranges
+    const ratingRanges = {
+      "0-50": 0,
+      "51-70": 0,
+      "71-85": 0,
+      "86-100": 0,
+    };
+
+    // Categorize games into rating ranges
+    wishlist.forEach(game => {
+      if (game.rating) {
+        if (game.rating <= 50) ratingRanges["0-50"]++;
+        else if (game.rating <= 70) ratingRanges["51-70"]++;
+        else if (game.rating <= 85) ratingRanges["71-85"]++;
+        else if (game.rating <= 100) ratingRanges["86-100"]++;
+      }
+    });
+
+    // Data for the chart
+    const chartData = {
+      labels: Object.keys(ratingRanges),
+      datasets: [{
+        label: "Games by Rating Range",
+        data: Object.values(ratingRanges),
+        backgroundColor: ["#f44336", "#ff9800", "#ffc107", "#4caf50"],
+        borderColor: ["#d32f2f", "#f57c00", "#ffa000", "#388e3c"],
+        borderWidth: 1,
+      }],
+    };
+
+    // Chart options
+    const chartOptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+        },
+      },
+    };
+
+    // Get the canvas element
+    const ctx = document.getElementById('ratingDistributionChart').getContext('2d');
+
+    // Destroy the existing chart instance if it exists
+    if (ratingDistributionChartInstance) {
+      ratingDistributionChartInstance.destroy();
+    }
+
+    // Create a new chart instance
+    ratingDistributionChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: chartOptions,
+    });
+  } catch (error) {
+    console.error("Error rendering rating distribution chart:", error);
+  }
+}
+
 
