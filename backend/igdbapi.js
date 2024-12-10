@@ -42,8 +42,8 @@ async function searchGame(gameName) {
     }
 }
 
+//Get games by platform ID and get return random games
 async function gameByPlatform(platformID) {
-    
     try {
         const response = await fetch(
             "https://api.igdb.com/v4/games",
@@ -71,7 +71,7 @@ async function gameByPlatform(platformID) {
 }
 
 function selectRandomGames(games, count) {
-    const shuffled = games.sort(() => 0.5 - Math.random()); // Shuffle the array
+    const shuffled = games.sort(() => 0.5 - Math.random()); //Shuffle the array
     return shuffled.slice(0, count);
 }
 

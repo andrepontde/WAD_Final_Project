@@ -25,33 +25,106 @@
       }
     ],
     "name": "Outer Wilds",
-    "rating": 90.52879838704597,
+    "rating": 90.53355725797724,
     "summary": "Outer Wilds is a critically-acclaimed and award-winning open world mystery about a solar system trapped in an endless time loop. The newest member of the space program in a small village on the planet Timber Hearth, the player navigates a space shuttle and travels across their solar system to get to the bottom of its mysteries by exploring the cosmos and gathering the knowledge hidden within each of the system's planets, left behind by another civilization in the distant past.",
     "rank": 1,
     "playState": "Played"
   },
   {
-    "id": 2350,
+    "id": 119388,
     "cover": {
-      "id": 94742,
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co213q.jpg"
+      "id": 274264,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co5vmg.jpg"
     },
-    "first_release_date": 1401321600,
+    "first_release_date": 1683849600,
     "genres": [
       {
-        "id": 10,
-        "name": "Racing"
+        "id": 12,
+        "name": "Role-playing (RPG)"
       },
       {
-        "id": 33,
-        "name": "Arcade"
+        "id": 31,
+        "name": "Adventure"
       }
     ],
-    "name": "Mario Kart 8",
-    "rating": 87.31522727875787,
-    "summary": "Turn your racing experience upside down! Nintendo’s Mario Kart franchise comes to the Wii U console in full HD, introducing new racing circuit designs and anti-gravity karts that will have players driving upside down. And for the first time, all of Bowser’s seven Koopalings are playable characters-- get a taste of being bad on the race track by playing as Iggy, Larry, Lemmy, Ludwig, Morton, Roy and Wendy. Players will also enjoy a variety of series-favorite features, including the return of 12-player online competitive play, hang-gliders, underwater racing and motorbikes.",
+    "name": "The Legend of Zelda: Tears of the Kingdom",
+    "rating": 94.37487012931243,
+    "summary": "The Legend of Zelda: Tears of the Kingdom is the sequel to The Legend of Zelda: Breath of the Wild. The setting for Link’s adventure has been expanded to include the skies above the vast lands of Hyrule.",
     "rank": 2,
+    "playState": "Played"
+  },
+  {
+    "id": 101440,
+    "cover": {
+      "id": 266891,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co5pxn.jpg"
+    },
+    "first_release_date": 1732060800,
+    "genres": [
+      {
+        "id": 5,
+        "name": "Shooter"
+      },
+      {
+        "id": 12,
+        "name": "Role-playing (RPG)"
+      },
+      {
+        "id": 31,
+        "name": "Adventure"
+      }
+    ],
+    "name": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+    "rating": 78.15431610097845,
+    "summary": "S.T.A.L.K.E.R 2 is a unique blend of FPS, immersive sim and horror with a really thick atmosphere. One of the biggest open-worlds to date is yours to explore — along with an epic branching story with multiple endings. S.T.A.L.K.E.R. stands for (Scavengers, Trespassers, Adventurers, Loners, Killers, Explorers and Robbers).",
+    "rank": 3,
     "playState": "Not Played"
+  },
+  {
+    "id": 229246,
+    "cover": {
+      "id": 275875,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co5wv7.jpg"
+    },
+    "first_release_date": 1600387200,
+    "genres": [
+      {
+        "id": 8,
+        "name": "Platform"
+      },
+      {
+        "id": 31,
+        "name": "Adventure"
+      }
+    ],
+    "name": "Super Mario Galaxy",
+    "rating": 80.54408452943039,
+    "summary": "A port of Super Mario Galaxy included in Super Mario 3D All-Stars, featuring Joy-Con and touch controls, updated textures and a higher output resolution.\n\nMario blasts off on an intergalactic quest to help Rosalina and save Princess Peach from Bowser’s assault of astronomical proportions. Defy gravity and hop across planets with optional motion controls, or pass a Joy-Con controller to a friend for some extra help in Co-Star Mode!",
+    "rank": 4,
+    "playState": "Played"
+  },
+  {
+    "id": 103020,
+    "cover": {
+      "id": 91156,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co1yc4.jpg"
+    },
+    "first_release_date": 1542153600,
+    "genres": [
+      {
+        "id": 5,
+        "name": "Shooter"
+      },
+      {
+        "id": 12,
+        "name": "Role-playing (RPG)"
+      }
+    ],
+    "name": "Fallout 76",
+    "rating": 60.23533900517499,
+    "summary": "Bethesda Game Studios welcome you to Fallout 76. Twenty-five years after the bombs fall you and your fellow Vault Dwellers, chosen from the nation’s best and brightest, emerge into post-nuclear America on Reclamation Day, 2102. Play solo or join together as you explore, quest, build, and triumph against the wasteland’s greatest threats. Explore a vast wasteland, devastated by nuclear war, in this open-world multiplayer addition to the Fallout story. Experience the largest, most dynamic world ever created in the legendary Fallout universe.",
+    "rank": 5,
+    "playState": "Played"
   },
   {
     "id": 277143,
@@ -73,79 +146,6 @@
     "name": "The Last of Us Part II: Remastered",
     "rating": 90.54926588518839,
     "summary": "Experience the winner of over 300 Game of the Year awards now with an array of technical enhancements that make The Last of Us Part Il Remastered the definitive way to play Ellie and Abby's critically acclaimed story.",
-    "rank": 4,
-    "playState": "Not Played"
-  },
-  {
-    "id": 134606,
-    "cover": {
-      "id": 119925,
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co2kj9.jpg"
-    },
-    "first_release_date": 1605139200,
-    "genres": [
-      {
-        "id": 12,
-        "name": "Role-playing (RPG)"
-      },
-      {
-        "id": 31,
-        "name": "Adventure"
-      }
-    ],
-    "name": "Demon's Souls",
-    "rating": 86.406456987115,
-    "summary": "Entirely rebuilt from the ground up and masterfully enhanced, Demon's Souls is a remake of the 2009 release that introduces the horrors of a fog-laden, dark fantasy land to a whole new generation of gamers. Those who’ve faced its trials and tribulations before, can once again challenge the darkness in stunning visual quality with incredible performance. The remake features improved graphics and animations, sound and lighting tweaks and a reimagining of many of the visual, musical and mechanical aspects of the original game.",
-    "rank": 5,
-    "playState": "Not Played"
-  },
-  {
-    "id": 96437,
-    "cover": {
-      "id": 152779,
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co39vv.jpg"
-    },
-    "first_release_date": 1693958400,
-    "genres": [
-      {
-        "id": 5,
-        "name": "Shooter"
-      },
-      {
-        "id": 12,
-        "name": "Role-playing (RPG)"
-      },
-      {
-        "id": 31,
-        "name": "Adventure"
-      }
-    ],
-    "name": "Starfield",
-    "rating": 71.33234718918133,
-    "summary": "In this next generation role-playing game set amongst the stars, create any character you want and explore with unparalleled freedom as you embark on an epic journey to answer humanity’s greatest mystery.",
-    "rank": 6,
-    "playState": "Played"
-  },
-  {
-    "id": 103020,
-    "cover": {
-      "id": 91156,
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co1yc4.jpg"
-    },
-    "first_release_date": 1542153600,
-    "genres": [
-      {
-        "id": 5,
-        "name": "Shooter"
-      },
-      {
-        "id": 12,
-        "name": "Role-playing (RPG)"
-      }
-    ],
-    "name": "Fallout 76",
-    "rating": 60.22813182175356,
-    "summary": "Bethesda Game Studios welcome you to Fallout 76. Twenty-five years after the bombs fall you and your fellow Vault Dwellers, chosen from the nation’s best and brightest, emerge into post-nuclear America on Reclamation Day, 2102. Play solo or join together as you explore, quest, build, and triumph against the wasteland’s greatest threats. Explore a vast wasteland, devastated by nuclear war, in this open-world multiplayer addition to the Fallout story. Experience the largest, most dynamic world ever created in the legendary Fallout universe.",
     "playState": "Not Played",
     "rank": 6
   }
