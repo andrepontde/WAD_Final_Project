@@ -147,11 +147,33 @@ app.put('/wishlist/:id', (req, res) => {
       });
     });
 });
-  
+
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
+//Serve each file individually
+app.get("/about", (req, res) => {
+    console.log("About page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'about.html'));
+});
+app.get("/home", (req, res) => {
+    console.log("Main page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
+});
+app.get("/contact", (req, res) => {
+    console.log("Contact page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'contact.html'));
+});
+app.get("/service", (req, res) => {
+    console.log("Service page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'service.html'));
+});
+app.get("/wishlistPage", (req, res) => {
+    console.log("wishlist page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'wishlist.html'));
+});
+
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
 });
 
 //Start the server and fetch IGDB data

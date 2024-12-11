@@ -543,4 +543,17 @@ async function renderRatingDistributionChart() {
   }
 }
 
+function formSubmission(){
+  const userName = document.getElementById("name").value;
+  const userEmail = document.getElementById("email").value;
+  const userMessage = document.getElementById("message").value;
+
+  if(userName != "" && userEmail != "" && userMessage != ""){
+    alert("We got your message! we will be in touch as soon as possible.");
+  }else{
+    alert("Please fill the entire form before submitting");
+  }
+
+}
+
 

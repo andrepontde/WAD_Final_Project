@@ -9,44 +9,45 @@
 <body>
     <header class="navigation-bar">
         <div class="logo">
-            <a href="index.html">DopFin</a>
+            <a href="/home">DopFin</a>
         </div>
 
         <nav>
-            <a href="service.html">Find Games</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="/service">Find Games</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/wishlistPage">Wishlist</a>
         </nav>
     </header>
     <div class="mainDiv">
         
         <div class="dividedDiv">
             <div>
-                <h3>We would love to hear what you have to say, feel free to leave a message for the team!</h3>
+                <br><br><br><br>
+                <h1>We would love to hear what you have to say, feel free to leave a message for the team!</h1>
+                <h3>At DopFin, we believe our audience is the heart of everything we create. Your feedback helps us refine our platform, ensuring we deliver the most engaging gaming experiences tailored to your needs. Whether you have suggestions, ideas, or simply want to share your thoughts, we are here to listen and grow together.</h3>
             </div>
             <div>
                 <div id="contactForm">
-                    <h2>Contact Us</h2>
-                    <form action="/submit" method="POST">
-                        <div class="form-group">
-                            <label for="name">Your Name:</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Your Email:</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Your Message:</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
-                        </div>
-                
-                        <button type="submit">Send Message</button>
+                    <form>
+                      <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="message">Your Message:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                      </div>
+                  
+                      <input type="button" onclick="formSubmission()" value="Submit">
                     </form>
-                </div>
+                  </div>
             </div>
         </div>
         <div class="dividedDiv">
@@ -55,12 +56,15 @@
 
             </div>
             <div>
-                <a href="service.html">
+                <a href="/service">
                     <input type="button" value="Find Games!" >
                 </a>            </div>
         </div>
 
     </div>
+
+    <script async type="text/javascript" src="script.js"></script>
+
     <footer>
         <p>André Pont De Anda - x23164034@student.ncirl.ie</p>
         <p>Games fetched from the IGDB API!</p>
