@@ -19,7 +19,7 @@ async function gameByPlatform(platformID) {
                 },
                 body: `fields name, rating, first_release_date, genres.name, summary, cover.url; 
                         limit 5; 
-                        where platforms = [${platformID}] & rating_count > 30 & rating <= ${randomRating} & version_parent = null & age_ratings.rating <= 11 ;
+                        where platforms = [${platformID}] & rating_count > 30 & rating <= ${randomRating} & version_parent = null & age_ratings.rating <= 4;
                         sort rating desc;`
             
             }
