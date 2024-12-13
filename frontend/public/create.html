@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://db.onlinewebfonts.com/c/3284c3a32cf946466fb963369b3c5b2d?family=Disket+Mono" rel="stylesheet">
+    <title>VaporPowered - create</title>
+</head>
+<body>
+    <header class="navigation-bar">
+        <div class="logo">
+            <a href="/home">DopFin</a>
+        </div>
+
+        <nav>
+            <a href="/service">Find Games</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/create">Create title</a>
+            <a href="/wishlistPage">Wishlist</a>
+        </nav>
+    </header>
+    <div class="mainDiv">
+        
+        <div class="dividedDiv">
+
+            <div>
+                <div id="addGameForm">
+                    <h2>Add a New Game</h2>
+                    <form id="gameForm">
+                        <div class="form-group">
+                            <label>Game Name:</label>
+                            <input type="text" id="gameName" name="gameName">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Game ID:</label>
+                            <input type="number" id="gameID" name="gameRating" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rating (0-100):</label>
+                            <input type="number" id="gameRating" name="gameRating" min="0" max="100">
+                        </div>
+                
+                        <div class="form-group">
+                            <label>Summary:</label>
+                            <textarea id="gameSummary" name="gameSummary" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Release Date:</label>
+                            <input type="date" id="gameReleaseDate" name="gameReleaseDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cover Image URL:</label>
+                            <input type="url" id="gameCover" name="gameCover">
+                        </div>
+                
+                        <input type="button" onclick="addNewGame()" value="Add Game">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="dividedDiv">
+            <div>
+                <h2>What are you waiting for? let's go find some games to play!</h2>
+
+            </div>
+            <div>
+                <a href="/service">
+                    <input type="button" value="Find Games!" >
+                </a>            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>André Pont De Anda - x23164034@student.ncirl.ie</p>
+        <p>Games fetched from the IGDB API!</p>
+        <a href="/contact">Get in touch</a>
+    </footer>
+    
+    <script async type="text/javascript" src="script.js"></script>
+
+    <!-- Game Details pop up -->
+    <div class="gamesDiv" id="PopUpGamesDiv">
+          
+    </div>
+
+</body>
+</html>

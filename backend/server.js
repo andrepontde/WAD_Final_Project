@@ -60,7 +60,6 @@ app.post('/wishlist', (req, res) => {
         });
     });
 });
-
 //Class code - Read the JSON file data
 app.get('/wishlist', (req, res) => {
     const wishlistPath = path.join(__dirname, 'wishlist.json');
@@ -74,7 +73,6 @@ app.get('/wishlist', (req, res) => {
         res.json(JSON.parse(data));
     });
 });
-
 //Class code inspiration - Delete game from file.
 app.delete('/wishlist/:id', (req, res) => {
     const gameId = parseInt(req.params.id, 10); //Convert the ID to a number
@@ -98,7 +96,6 @@ app.delete('/wishlist/:id', (req, res) => {
         });
     });
 });
-
 //Class code - Update an Item
 app.put('/wishlist/:id', (req, res) => {
     const gameId = parseInt(req.params.id, 10);
@@ -171,8 +168,18 @@ app.get("/wishlistPage", (req, res) => {
     console.log("wishlist page accessed");
     res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'wishlist.html'));
 });
+app.get("/create", (req, res) => {
+    console.log("wishlist page accessed");
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'create.html'));
+});
+
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', '404.html'));
+});
+   
 
 app.get("/", (req, res) => {
+    console.log("404!!!")
     res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
 });
 

@@ -1,3 +1,5 @@
+@import url(https://db.onlinewebfonts.com/c/3284c3a32cf946466fb963369b3c5b2d?family=Disket+Mono);
+
 @font-face {
     font-family: "Disket Mono";
     src: url("https://db.onlinewebfonts.com/t/3284c3a32cf946466fb963369b3c5b2d.eot");
@@ -8,7 +10,6 @@
     url("https://db.onlinewebfonts.com/t/3284c3a32cf946466fb963369b3c5b2d.svg#Disket Mono")format("svg");
 }
 
-@import url(https://db.onlinewebfonts.com/c/3284c3a32cf946466fb963369b3c5b2d?family=Disket+Mono);
 
 /* General styles */
 body {
@@ -439,21 +440,12 @@ input[type="checkbox"] {
 /* Contact page section */
 
 #contactForm {
-    max-width: 600px;
+    max-width: 650px;
     margin: 50px auto;
     padding: 20px;
     background-color: #304c7a;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
     color: white;
-    font-family: Arial, sans-serif;
-}
-
-#contactForm h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #ff7f50;
 }
 
 .form-group {
@@ -465,26 +457,26 @@ input[type="checkbox"] {
     display: block;
     font-size: 1rem;
     margin-bottom: 5px;
-    color: #fff;
+    color: white;
 }
 
 .form-group input, .form-group textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     border-radius: 4px;
-    background-color: #fff;
-    color: #333;
     margin-top: 5px;
-}
-
-.form-group input:focus, .form-group textarea:focus {
-    border-color: #ff7f50;
-    outline: none;
-    box-shadow: 0 0 4px #ff7f50;
 }
 
 textarea {
     resize: vertical;
+}
+
+#addGameForm {
+    max-width: 900px;
+    margin: 10px auto;
+    padding: 15px;
+    background-color: #304c7a;
+    border-radius: 4px;
 }

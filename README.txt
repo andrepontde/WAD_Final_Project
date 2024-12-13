@@ -9,3 +9,5 @@ npm start
 
 Access the application:
 Open your web browser and go to http://localhost:3000 to access the application.
+
+The GitHub repository is: https://github.com/andrepontde/my-first-web-app/tree/main
