@@ -2,6 +2,19 @@ const CLIENT_ID = '3bpzcko2hlfe4gub82cnl7rc7lmvax';
 const CLIENT_SECRET = 'goy4tg4fc9zkoh9f2v6esmkldpcpb0';
 let ACCESS_TOKEN = '';
 
+
+async function getAccessToken() {
+    const response = await fetch('https://id.twitch.tv/oauth2/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=client_credentials`,
+    });
+    const data = await response.json();
+    ACCESS_TOKEN = data.access_token;
+    console.log(ACCESS_TOKEN + " Access Token");
+}
+
+
 //Get games by platform ID and get return random games
 async function gameByPlatform(platformID) {
 
@@ -21,7 +34,6 @@ async function gameByPlatform(platformID) {
                         limit 5; 
                         where platforms = [${platformID}] & rating_count > 30 & rating <= ${randomRating} & version_parent = null & age_ratings.rating <= 4;
                         sort rating desc;`
-            
             }
         );
         
@@ -33,16 +45,7 @@ async function gameByPlatform(platformID) {
     }
 }
 
-async function getAccessToken() {
-    const response = await fetch('https://id.twitch.tv/oauth2/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=client_credentials`,
-    });
-    const data = await response.json();
-    ACCESS_TOKEN = data.access_token;
-    console.log(ACCESS_TOKEN + " Access Token");
-}
+
 
 async function searchGame(gameName) {
     if (!ACCESS_TOKEN) {

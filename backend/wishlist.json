@@ -96,33 +96,6 @@
     "playState": "Played"
   },
   {
-    "id": 101440,
-    "cover": {
-      "id": 266891,
-      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co5pxn.jpg"
-    },
-    "first_release_date": 1732060800,
-    "genres": [
-      {
-        "id": 5,
-        "name": "Shooter"
-      },
-      {
-        "id": 12,
-        "name": "Role-playing (RPG)"
-      },
-      {
-        "id": 31,
-        "name": "Adventure"
-      }
-    ],
-    "name": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
-    "rating": 78.15431610097845,
-    "summary": "S.T.A.L.K.E.R 2 is a unique blend of FPS, immersive sim and horror with a really thick atmosphere. One of the biggest open-worlds to date is yours to explore — along with an epic branching story with multiple endings. S.T.A.L.K.E.R. stands for (Scavengers, Trespassers, Adventurers, Loners, Killers, Explorers and Robbers).",
-    "rank": 5,
-    "playState": "Not Played"
-  },
-  {
     "id": 103020,
     "cover": {
       "id": 91156,
@@ -142,8 +115,66 @@
     "name": "Fallout 76",
     "rating": 60.23533900517499,
     "summary": "Bethesda Game Studios welcome you to Fallout 76. Twenty-five years after the bombs fall you and your fellow Vault Dwellers, chosen from the nation’s best and brightest, emerge into post-nuclear America on Reclamation Day, 2102. Play solo or join together as you explore, quest, build, and triumph against the wasteland’s greatest threats. Explore a vast wasteland, devastated by nuclear war, in this open-world multiplayer addition to the Fallout story. Experience the largest, most dynamic world ever created in the legendary Fallout universe.",
-    "rank": 7,
+    "rank": 6,
     "playState": "Played"
+  },
+  {
+    "id": 144022,
+    "cover": {
+      "id": 208864,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co4h5s.jpg"
+    },
+    "first_release_date": 1644278400,
+    "genres": [
+      {
+        "id": 4,
+        "name": "Fighting"
+      },
+      {
+        "id": 25,
+        "name": "Hack and slash/Beat 'em up"
+      },
+      {
+        "id": 32,
+        "name": "Indie"
+      }
+    ],
+    "name": "Sifu",
+    "rating": 81.87786749282068,
+    "summary": "A third person action game featuring intense hand-to-hand combat, it puts you in control of a young Kung-Fu student on his path of revenge throughout the city.",
+    "playState": "Not Played",
+    "rank": 6
+  },
+  {
+    "id": 11182,
+    "cover": {
+      "id": 82132,
+      "url": "//images.igdb.com/igdb/image/upload/t_thumb/co1rdg.jpg"
+    },
+    "first_release_date": 1459814400,
+    "genres": [
+      {
+        "id": 5,
+        "name": "Shooter"
+      },
+      {
+        "id": 31,
+        "name": "Adventure"
+      },
+      {
+        "id": 32,
+        "name": "Indie"
+      },
+      {
+        "id": 33,
+        "name": "Arcade"
+      }
+    ],
+    "name": "Enter the Gungeon",
+    "rating": 76.9597978783471,
+    "summary": "Enter the Gungeon is a gunfight dungeon crawler following a band of regretful misfits seeking to shoot, loot, dodge roll and table-flip their way to personal absolution by reaching the legendary Gungeon’s ultimate treasure: the gun that can kill the past. Select a hero and battle your way to the bot¬tom of the Gungeon by surviving a challenging and evolving series of floors filled with the dangerously adorable Gundead and fearsome Gungeon bosses armed to the teeth. Gather precious loot, discover hidden secrets, and chat with opportunistic merchants and shopkeepers to purchase powerful items to gain an edge.",
+    "playState": "Not Played",
+    "rank": 7
   },
   {
     "id": 277143,

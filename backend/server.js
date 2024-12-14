@@ -29,7 +29,7 @@ app.get('/searchGame', async (req, res) => {
 
 app.use(express.json());
 
-//Class code - Push an item to a JSON file
+//Class code - Add an item to a JSON file
 app.post('/wishlist', (req, res) => {
     const newGame = req.body; //The game data received from the frontend
     const wishlistPath = path.join(__dirname, 'wishlist.json');
@@ -45,8 +45,7 @@ app.post('/wishlist', (req, res) => {
             wishlist = JSON.parse(data);
         }
 
-        const maxRank = wishlist.length + 1;
-        newGame.rank = maxRank;
+        newGame.rank = wishlist.length + 1; 
 
         //Add the new game to the wishlist array
         wishlist.push(newGame);
@@ -87,6 +86,22 @@ app.delete('/wishlist/:id', (req, res) => {
         //Filter out the game with the specified ID
         const updatedWishlist = wishlist.filter((game) => game.id !== gameId);
 
+        //Update the rank again
+        let deletedRank = null;
+        for (let x = 0; x < wishlist.length; x++) {
+            if (wishlist[x].id === gameId) {
+                deletedRank = wishlist[x].rank;
+                break;
+            }
+        }   
+
+        for (let i = 0; i < updatedWishlist.length; i++) {
+            const game = updatedWishlist[i];
+            if (game.rank > deletedRank) {
+                game.rank -= 1;
+            }
+        }
+
         fs.writeFile(wishlistPath, JSON.stringify(updatedWishlist, null, 2), (err) => {
             if (err) {
                 console.error('Error saving updated wishlist:', err);
@@ -96,6 +111,9 @@ app.delete('/wishlist/:id', (req, res) => {
         });
     });
 });
+
+
+
 //Class code - Update an Item
 app.put('/wishlist/:id', (req, res) => {
     const gameId = parseInt(req.params.id, 10);
@@ -119,19 +137,19 @@ app.put('/wishlist/:id', (req, res) => {
   
       //Handle rank shifting
       if (originalRank !== updatedGame.rank) {
-        wishlist = wishlist.map(game => {
-          if (game.id !== updatedGame.id) {
-            //Shift ranks accordingly
-            if (game.rank >= updatedGame.rank && game.rank < originalRank) {
-              game.rank += 1; //Push down if within new rank range
-            } else if (game.rank <= updatedGame.rank && game.rank > originalRank) {
-              game.rank -= 1; //Pull up if in previous rank range
+        for (let i = 0; i < wishlist.length; i++) {
+            const game = wishlist[i];
+          
+            if (game.id !== updatedGame.id) {
+              if (game.rank >= updatedGame.rank && game.rank < originalRank) {
+                game.rank += 1; //Push down if within new rank range
+              } else if (game.rank <= updatedGame.rank && game.rank > originalRank) {
+                game.rank -= 1; //Pull up if in previous rank range
+              }
             }
           }
-          return game;
-        });
       }
-  
+
       //Sort by rank before saving - code understood from https://www.geeksforgeeks.org/how-to-sort-json-array-in-javascript-by-value/
       wishlist.sort((a, b) => a.rank - b.rank);
   
@@ -144,6 +162,12 @@ app.put('/wishlist/:id', (req, res) => {
       });
     });
 });
+
+
+
+
+
+
 
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
