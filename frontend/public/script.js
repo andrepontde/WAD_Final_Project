@@ -1,7 +1,7 @@
 //When a platform ID is inserted in the population methods, it fetches games from IGDB only for that platform
 async function fetchPlatform(platformID) {
     try {
-        const response = await fetch(`http://localhost:3000/gamesByPlatform?search=${platformID}`);
+        const response = await fetch(`/gamesByPlatform/${platformID}`);
         const gamesByPlatform = await response.json(); // Parse the response as JSON
         if (gamesByPlatform.length === 0) {
                 console.log('No games found or data is not an array.');
@@ -17,7 +17,7 @@ async function fetchPlatform(platformID) {
 //Function to search for a game comunicating with the server and IGDB page
 async function searchGame(gameName) {
     try {
-        const response = await fetch(`http://localhost:3000/searchGame?search=${gameName}`);
+        const response = await fetch(`/searchGame?search=${gameName}`);
         const searchedGames = await response.json();
         if (searchedGames.length === 0) {
                 console.log('No games found or data is not an array.');
@@ -157,7 +157,7 @@ async function addToWishlist(game) {
 
     try {
         const response = await fetch(
-            "http://localhost:3000/wishlist",
+            "/wishlist",
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -175,7 +175,7 @@ async function addToWishlist(game) {
 //Updates a game's properties
 async function updateWishlist(updatedGame) {
     try {
-        const response = await fetch(`http://localhost:3000/wishlist/${updatedGame.id}`, {
+        const response = await fetch(`/wishlist/${updatedGame.id}`, {
             method: 'PUT', 
             headers: {
                 'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ async function removeFromWishlist(game) {
     const gameId = game.id;
     try {
         const response = await fetch(
-            `http://localhost:3000/wishlist/${gameId}`,
+            `/wishlist/${gameId}`,
             {
                 method: 'DELETE',
             }
@@ -214,14 +214,13 @@ async function removeFromWishlist(game) {
 //This function is used to get the JSON of wishlisted games to later populate the page with
 async function fetchWishlist() {
     try {
-        const response = await fetch('http://localhost:3000/wishlist');
+        const response = await fetch('/wishlist');
         const wishlist = await response.json();
         return wishlist; 
     } catch (error) {
             console.error('Error fetching wishlist:', error);
     }
 }
-
 
 
 function formSubmission(){
@@ -234,7 +233,6 @@ function formSubmission(){
     }else{
         alert("Please fill the entire form before submitting");
     }
-
 }
 
 

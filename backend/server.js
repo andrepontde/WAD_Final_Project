@@ -5,9 +5,10 @@ const igdbapi = require("./igdbapi");
 
 const app = express();
 
-app.get('/gamesByPlatform', async (req, res) => {
+//Send games by a specified platform to the front end JS
+app.get('/gamesByPlatform/:id', async (req, res) => {
     try {
-        const platformID = req.query.search; //Get the platform ID from the query
+        const platformID = req.params.id; //Get the platform ID from the query
         const gamesByPlatform = await igdbapi.gameByPlatform(platformID);
         res.json(gamesByPlatform); //Return the filtered games
     } catch (error) {
@@ -16,6 +17,7 @@ app.get('/gamesByPlatform', async (req, res) => {
     }
 });
 
+//Send games by a specified name to the front end JS
 app.get('/searchGame', async (req, res) => {
     try {
         const gameName = req.query.search; //Get the search term from the query parameter
@@ -59,7 +61,7 @@ app.post('/wishlist', (req, res) => {
         });
     });
 });
-//Class code - Read the JSON file data
+//Class code - Send the JSON file data to the front end JS
 app.get('/wishlist', (req, res) => {
     const wishlistPath = path.join(__dirname, 'wishlist.json');
     //Read the wishlist JSON file
@@ -111,9 +113,6 @@ app.delete('/wishlist/:id', (req, res) => {
         });
     });
 });
-
-
-
 //Class code - Update an Item
 app.put('/wishlist/:id', (req, res) => {
     const gameId = parseInt(req.params.id, 10);
